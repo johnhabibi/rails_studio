@@ -7,15 +7,15 @@ class Movie < ApplicationRecord
 
   validates :image_file_name, allow_blank: true, format: {
     with:    /\w+\.(gif|jpg|png)\z/i,
-    message: 'must reference a GIF, JPG, or PNG image'
+    message: "must reference a GIF, JPG, or PNG image"
   }
 
-  RATINGS = %w[G PG PG-13 R NC-17].freeze
+  RATINGS = %w(G PG PG-13 R NC-17)
 
   validates :rating, inclusion: { in: RATINGS }
 
   def self.released
-    where('released_on <= ?', Time.now).order('released_on desc')
+    where("released_on <= ?", Time.now).order("released_on desc")
   end
 
   def self.hits
@@ -31,6 +31,6 @@ class Movie < ApplicationRecord
   end
 
   def flop?
-    total_gross.blank? || total_gross < 50_000_000
+    total_gross.blank? || total_gross < 50000000
   end
 end
